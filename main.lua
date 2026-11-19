@@ -246,7 +246,7 @@ function esp:add(plr)
         distance = esp:draw('Text', { Color = NEWCOLOR3(1,1,1), Font = 2, Size = 13 }),
         weapon_outline = esp:draw('Text', { Color = NEWCOLOR3(), Font = 2, Size = 13 }),
         weapon = esp:draw('Text', { Color = NEWCOLOR3(1,1,1), Font = 2, Size = 13 }),
-        health = esp:draw('Text', { Color = NEWCOLOR3(1,1,1), Font = 2, Size = 13, Center = true })
+        health = esp:draw('Square', { Filled = true, Thickness = 1 })
     }
     local chams = { ins = esp:create('Highlight', { Name = plr.Name }) }
     function chams:Remove() chams.ins:Destroy() end
