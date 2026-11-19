@@ -528,25 +528,29 @@ function esp:update()
             end
 
 
+
             -- health
             drawing.health.Visible = esp[flag .. 'health'] and pass and onScreen
 
             if drawing.health.Visible then
-                drawing.health.Text = tostring(health)
-                drawing.health.Font = Drawing.Fonts[esp.font]
-                drawing.health.Size = esp.textsize
-                drawing.health.Center = true
-                drawing.health.Outline = esp.outlines
-                drawing.health.Color = esp[flag .. 'healthbar'][3]:Lerp(
-                    esp[flag .. 'healthbar'][2],
-                    health / 100
+                local healthPercent = CLAMP(health / character.Humanoid.MaxHealth, 0, 1)
+                local barHeight = biggestY - smallestY
+
+                drawing.health.Size = NEWVEC2(2, barHeight * healthPercent)
+                drawing.health.Position = NEWVEC2(
+                    smallestX - 5,
+                    biggestY - (barHeight * healthPercent)
                 )
-                drawing.health.Position = esp:floorvector(NEWVEC2(
-                    (smallestX + biggestX) / 2,
-                    smallestY - drawing.health.TextBounds.Y - 3
-                ))
+
+                drawing.health.Filled = true
+                drawing.health.Thickness = 1
+                drawing.health.Color = NEWCOLOR3(1, 0, 0):Lerp(
+                    NEWCOLOR3(0, 1, 0),
+                    healthPercent
+                )
                 drawing.health.Transparency = transparency
             end
+
 
 
             -- weapon
